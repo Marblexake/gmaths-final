@@ -101,12 +101,20 @@ public class HMatrix2D {
 
     public void setIdentity()
     {
-
+        for (int row = 0; row < 3; row++)
+        {
+            for (int col = 0; col < 3; col++)
+            {
+                entries[row, col] = (row == col) ? 1 : 0;
+            }
+        }
     }
 
     public void setTranslationMat(float transX, float transY)
     {
-
+        setIdentity();
+        entries[0, 2] = transX;
+        entries[1, 2] = transY;
     }
 
     public void setRotationMat(float rotDeg)

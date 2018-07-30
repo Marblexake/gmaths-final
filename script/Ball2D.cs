@@ -19,6 +19,7 @@ public class Ball2D : MonoBehaviour {
         mVel = new HVector2D(0,0);
 
         mRadius = GlobalVariable.BALL_SIZE / 2;
+
     }
 	
 	// Update is called once per frame
@@ -38,13 +39,42 @@ public class Ball2D : MonoBehaviour {
 
     public bool isCollidingWith(Ball2D other)
     {
-   
+        //if distance between the centre point of the 2 balls
+        // <= to the radius added together
+
+        //finds the difference, does the pythogoras theorem
+        float differenceInX = this.mPos.x - other.mPos.x;
+        float differenceInY = this.mPos.y - other.mPos.y;
+        //math.pow does the power
+        float distanceBetween2Balls =  Mathf.Sqrt(Mathf.Pow(differenceInX, 2) + Mathf.Pow(differenceInY, 2));
+        float radiusAddedTogether = this.mRadius + other.mRadius;
+
+        if(distanceBetween2Balls <= radiusAddedTogether)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
 
     // Falls inside a hole
     public bool isInside(Hole2D hole)
     {
+        //finds diff betw the x and y values
+        float differenceInX = this.mPos.x - hole.mPos.x;
+        float differenceInY = this.mPos.y - hole.mPos.y;
 
+        //finds the distance/magnitude between ball and hole
+        float distanceBetBallAndHole = Mathf.Sqrt(Mathf.Pow(differenceInX, 2) + Mathf.Pow(differenceInY, 2));
+
+        if (distanceBetBallAndHole <= hole.mRadius)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void UpdatePhysics()
